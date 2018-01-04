@@ -12,8 +12,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yoprogramo.isspasses.Model.ISSPass;
-import com.yoprogramo.isspasses.Util.RetrofitAdapter;
+import com.yoprogramo.isspasses.model.ISSPass;
+import com.yoprogramo.isspasses.util.RetrofitAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,11 +107,7 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
             public void onNext(ISSPass issPass) {
                 //iDetailFollowerView.setItems(repoUser);
 
-                while(issPass.getResponse().iterator().hasNext()){
-                    issPassesList.add(issPass.getResponse().iterator().next().getDuration());
-                }
-
-                Log.d("TAG", "onNext: " + issPassesList.toString());
+                Log.d("TAG", "onNext: " + issPass.getResponse().iterator().next().getDuration());
             }
 
         };

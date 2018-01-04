@@ -1,4 +1,4 @@
-package com.yoprogramo.isspasses.Util;
+package com.yoprogramo.isspasses.util;
 
 import java.util.ArrayList;
 import java.util.Collection;

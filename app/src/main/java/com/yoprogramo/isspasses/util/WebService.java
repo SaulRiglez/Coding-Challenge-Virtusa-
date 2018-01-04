@@ -1,6 +1,6 @@
-package com.yoprogramo.isspasses.Util;
+package com.yoprogramo.isspasses.util;
 
-import com.yoprogramo.isspasses.Model.ISSPass;
+import com.yoprogramo.isspasses.model.ISSPass;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

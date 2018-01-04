@@ -1,4 +1,4 @@
-package com.yoprogramo.isspasses.Util;
+package com.yoprogramo.isspasses.util;
 
 import android.content.Context;
 import android.content.Intent;

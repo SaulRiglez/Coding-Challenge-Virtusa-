@@ -3,7 +3,7 @@ package com.yoprogramo.isspasses;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-import com.yoprogramo.isspasses.Util.PermissionUtil;
+import com.yoprogramo.isspasses.util.PermissionUtil;
 import com.yoprogramo.isspasses.controller.Bus;
 
 /**

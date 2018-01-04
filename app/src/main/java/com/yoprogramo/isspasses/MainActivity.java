@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.yoprogramo.isspasses.Util.PermissionUtil;
-import com.yoprogramo.isspasses.Util.Prefs;
+import com.yoprogramo.isspasses.util.PermissionUtil;
+import com.yoprogramo.isspasses.util.Prefs;
 import com.yoprogramo.isspasses.constants.Commons;
 import com.yoprogramo.isspasses.event.PermissionEvent;
 
