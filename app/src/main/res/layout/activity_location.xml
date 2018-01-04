@@ -4,17 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yoprogramo.isspasses.LocationActivity">
+    android:orientation="vertical"
+    tools:context="com.yoprogramo.isspasses.view.LocationActivity">
 
     <TextView
-        android:id="@+id/tv_latitud"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="@string/international_space_station_pass_times"
+        android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/tv_longitud"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="Lat"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_latitud"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="Lon"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_longitud"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

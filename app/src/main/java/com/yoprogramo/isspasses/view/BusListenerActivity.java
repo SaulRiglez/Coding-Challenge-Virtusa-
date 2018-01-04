@@ -1,4 +1,4 @@
-package com.yoprogramo.isspasses;
+package com.yoprogramo.isspasses.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -6,9 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.yoprogramo.isspasses.util.PermissionUtil;
 import com.yoprogramo.isspasses.controller.Bus;
 
-/**
- * Created by User on 1/4/2018.
- */
 
 public abstract class BusListenerActivity extends AppCompatActivity {
     @Override

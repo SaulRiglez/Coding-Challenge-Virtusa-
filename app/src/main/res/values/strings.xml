@@ -6,6 +6,7 @@
     <string name="location_permission_rationale">This App needs to have access to your device\'s locaton for ISS pass functionality.  Please allow the permission when requested.</string>
     <string name="allow_camera_access">Please allow location access!.</string>
     <string name="unable_to_use_gps">Unable to use GPS</string>
+    <string name="international_space_station_pass_times">International Space Station Pass Times</string>
 
 
 </resources>

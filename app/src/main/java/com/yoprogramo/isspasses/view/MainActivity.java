@@ -1,10 +1,11 @@
-package com.yoprogramo.isspasses;
+package com.yoprogramo.isspasses.view;
 
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.yoprogramo.isspasses.R;
 import com.yoprogramo.isspasses.util.PermissionUtil;
 import com.yoprogramo.isspasses.util.Prefs;
 import com.yoprogramo.isspasses.constants.Commons;
@@ -44,6 +45,7 @@ public class MainActivity extends BusListenerActivity implements PermissionUtil.
                 mLocationPermissionString,
                 this)) {
             getLocation();
+
         }
     }
 
@@ -52,6 +54,7 @@ public class MainActivity extends BusListenerActivity implements PermissionUtil.
         Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LocationActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Subscribe

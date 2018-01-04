@@ -1,4 +1,4 @@
-package com.yoprogramo.isspasses;
+package com.yoprogramo.isspasses.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yoprogramo.isspasses.R;
 import com.yoprogramo.isspasses.model.ISSPass;
 import com.yoprogramo.isspasses.util.RetrofitAdapter;
 
@@ -24,11 +25,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class LocationActivity extends AppCompatActivity implements LocationListener {
-
-//    @BindView(R.id.tv_latitud)
-//    protected TextView latitud;
-//    @BindView(R.id.tv_longitud)
-//    protected TextView longitud;
 
     private TextView latitud;
     private TextView longitud;
@@ -84,10 +80,13 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
 
     @Override
     public void onLocationChanged(Location location) {
+
         double lat = (double) (location.getLatitude());
         double lng = (double) (location.getLongitude());
-        latitud.setText(String.valueOf(lat));
-        longitud.setText(String.valueOf(lng));
+
+
+        latitud.setText(String.format("%6f",lat));
+        longitud.setText(String.format("%6f",lng));
 
         Observable<ISSPass> resultObservable = RetrofitAdapter.Factory.createObservable(latitud.getText().toString(),longitud.getText().toString());
         Observer issObserver = new Observer<ISSPass>() {

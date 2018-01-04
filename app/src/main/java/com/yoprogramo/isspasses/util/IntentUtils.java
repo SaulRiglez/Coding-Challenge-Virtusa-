@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 
-/**
- * Created by User on 1/4/2018.
- */
 
 public class IntentUtils {
 
