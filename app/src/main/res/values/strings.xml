@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ISSPasses</string>
+    <string name="Ok">OK</string>
+    <string name="Cancel">Cancel</string>
+    <string name="settings">Settings</string>
+    <string name="location_permission_rationale">This App needs to have access to your device\'s locaton for ISS pass functionality.  Please allow the permission when requested.</string>
+    <string name="allow_camera_access">Please allow location access!.</string>
+    <string name="unable_to_use_gps">Unable to use GPS</string>
+
+
+</resources>
