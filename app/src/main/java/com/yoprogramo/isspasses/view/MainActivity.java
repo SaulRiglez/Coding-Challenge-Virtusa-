@@ -7,8 +7,8 @@ import android.os.Bundle;
 import com.yoprogramo.isspasses.R;
 import com.yoprogramo.isspasses.constants.Commons;
 import com.yoprogramo.isspasses.event.PermissionEvent;
+import com.yoprogramo.isspasses.model.Prefs;
 import com.yoprogramo.isspasses.util.PermissionUtil;
-import com.yoprogramo.isspasses.util.Prefs;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -48,7 +48,7 @@ public class MainActivity extends BusListenerActivity implements PermissionUtil.
     }
 
     private void getLocation() {
-        Intent intent = new Intent(this, LocationActivity.class);
+        Intent intent = new Intent(this, MainViewActivity.class);
         startActivity(intent);
         finish();
     }

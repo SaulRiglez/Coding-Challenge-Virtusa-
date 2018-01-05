@@ -20,17 +20,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yoprogramo.isspasses.R;
-import com.yoprogramo.isspasses.model.Response;
+import com.yoprogramo.isspasses.entities.Response;
 import com.yoprogramo.isspasses.presenter.IPresenter;
-import com.yoprogramo.isspasses.presenter.LocationActivityPresenter;
-import com.yoprogramo.isspasses.util.ResponsesAdapter;
+import com.yoprogramo.isspasses.presenter.MainViewActivityPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 
-public class LocationActivity extends AppCompatActivity implements LocationListener, IView.ILocationActivityView {
+public class MainViewActivity extends AppCompatActivity implements LocationListener, IView.ILocationActivityView {
 
     IPresenter.ILocationActiviy IPresenterLocationActivityInterface;
 
@@ -61,13 +60,11 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         locationHeader = ((TextView) findViewById(R.id.location_header));
         failure = ((LinearLayout) findViewById(R.id.failure));
         success = ((LinearLayout) findViewById(R.id.failure));
+
         initLocationManager();
 
-        if (latitud == null) {
-            Toast.makeText(this, "Location is not available", Toast.LENGTH_SHORT).show();
-        }
-
         initAdapter();
+
     }
 
     private void initAdapter() {
@@ -78,7 +75,7 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(responsesAdapter);
 
-        IPresenterLocationActivityInterface = new LocationActivityPresenter(this);
+        IPresenterLocationActivityInterface = new MainViewActivityPresenter(this);
         IPresenterLocationActivityInterface.getIssPasses(issResponsesList, latitud.getText().toString(), longitud.getText().toString());
     }
 
@@ -131,7 +128,7 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         double lat = (double) (location.getLatitude());
         double lng = (double) (location.getLongitude());
 
-        String header = "Your are here: " + "( Lat: " + String.format("%6f", lat) +" , " + "Long: " + String.format("%6f", lng) + " )";
+        String header = "Your are here: " + "( Lat: " + String.format("%6f", lat) + " , " + "Long: " + String.format("%6f", lng) + " )";
         locationHeader.setText(header);
         latitud.setText(String.format("%6f", lat));
         longitud.setText(String.format("%6f", lng));
@@ -159,4 +156,5 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
     public void notifyAdapter() {
         responsesAdapter.notifyDataSetChanged();
     }
+
 }

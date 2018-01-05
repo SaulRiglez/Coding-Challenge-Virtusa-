@@ -2,9 +2,9 @@ package com.yoprogramo.isspasses.presenter;
 
 import android.util.Log;
 
-import com.yoprogramo.isspasses.model.ISSPass;
-import com.yoprogramo.isspasses.model.Response;
-import com.yoprogramo.isspasses.util.RetrofitAdapter;
+import com.yoprogramo.isspasses.entities.ISSPass;
+import com.yoprogramo.isspasses.entities.Response;
+import com.yoprogramo.isspasses.model.RetrofitAdapter;
 import com.yoprogramo.isspasses.view.IView;
 
 import java.util.List;
@@ -15,11 +15,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 
-public class LocationActivityPresenter implements IPresenter.ILocationActiviy{
+public class MainViewActivityPresenter implements IPresenter.ILocationActiviy{
 
 IView.ILocationActivityView locationAvtivityViewInterface;
 
-    public LocationActivityPresenter(IView.ILocationActivityView locationAvtivityViewInterface) {
+    public MainViewActivityPresenter(IView.ILocationActivityView locationAvtivityViewInterface) {
         this.locationAvtivityViewInterface = locationAvtivityViewInterface;
     }
 

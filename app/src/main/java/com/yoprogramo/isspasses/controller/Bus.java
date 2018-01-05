@@ -23,6 +23,10 @@ public class Bus {
         EventBus.getDefault().post(event);
     }
 
+    private static void postSticky(BaseEvent event) {
+        EventBus.getDefault().postSticky(event);
+    }
+
     public static void onLocationPermissionGranted(boolean granted) {
         post(new LocationPermissionEvent(granted));
     }

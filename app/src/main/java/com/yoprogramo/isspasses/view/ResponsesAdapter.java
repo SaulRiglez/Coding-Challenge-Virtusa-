@@ -1,4 +1,4 @@
-package com.yoprogramo.isspasses.util;
+package com.yoprogramo.isspasses.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.yoprogramo.isspasses.R;
-import com.yoprogramo.isspasses.model.Response;
+import com.yoprogramo.isspasses.entities.Response;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

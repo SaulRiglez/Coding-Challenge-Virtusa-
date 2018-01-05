@@ -1,5 +1,5 @@
 
-package com.yoprogramo.isspasses.model;
+package com.yoprogramo.isspasses.entities;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

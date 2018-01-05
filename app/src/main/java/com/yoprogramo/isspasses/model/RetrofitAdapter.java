@@ -1,6 +1,6 @@
-package com.yoprogramo.isspasses.util;
+package com.yoprogramo.isspasses.model;
 
-import com.yoprogramo.isspasses.model.ISSPass;
+import com.yoprogramo.isspasses.entities.ISSPass;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;

@@ -1,6 +1,6 @@
 package com.yoprogramo.isspasses.presenter;
 
-import com.yoprogramo.isspasses.model.Response;
+import com.yoprogramo.isspasses.entities.Response;
 
 import java.util.List;
 

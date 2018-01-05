@@ -5,6 +5,9 @@ package com.yoprogramo.isspasses.event;
  */
 
 public class LocationPermissionEvent extends PermissionEvent {
+
+
+
     public LocationPermissionEvent(boolean granted) {
         super(granted);
     }

@@ -1,4 +1,4 @@
-package com.yoprogramo.isspasses.util;
+package com.yoprogramo.isspasses.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;

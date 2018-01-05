@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import com.yoprogramo.isspasses.R;
 import com.yoprogramo.isspasses.constants.Commons;
 import com.yoprogramo.isspasses.controller.Bus;
+import com.yoprogramo.isspasses.model.Prefs;
 
 import java.util.Arrays;
 import java.util.List;
