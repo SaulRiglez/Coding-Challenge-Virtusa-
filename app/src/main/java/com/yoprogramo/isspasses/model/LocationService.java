@@ -9,7 +9,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.yoprogramo.isspasses.controller.Bus;
 
@@ -50,12 +49,6 @@ public class LocationService implements LocationListener{
         double lat = (double) (location.getLatitude());
         double lng = (double) (location.getLongitude());
         Bus.onLocationChagged(lat, lng);
-
-        Log.d("Photo", "onLocationChanged: " + lat +"    " + lng);
-
-
-        //Bus.updateLocation(true, lat, lng);
-
     }
 
     @Override
