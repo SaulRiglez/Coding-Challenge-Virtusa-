@@ -45,7 +45,6 @@ public class MainViewActivity extends AppCompatActivity implements LocationListe
 
     private LocationManager locationManager;
     private String provider;
-
     ResponsesAdapter responsesAdapter;
     private RecyclerView.LayoutManager linearLayoutManager;
 
