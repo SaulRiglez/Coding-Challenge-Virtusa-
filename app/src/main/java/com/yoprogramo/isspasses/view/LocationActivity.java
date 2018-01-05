@@ -8,51 +8,72 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yoprogramo.isspasses.R;
-import com.yoprogramo.isspasses.model.ISSPass;
-import com.yoprogramo.isspasses.util.RetrofitAdapter;
+import com.yoprogramo.isspasses.model.Response;
+import com.yoprogramo.isspasses.presenter.IPresenter;
+import com.yoprogramo.isspasses.presenter.LocationActivityPresenter;
+import com.yoprogramo.isspasses.util.ResponsesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import butterknife.ButterKnife;
 
-public class LocationActivity extends AppCompatActivity implements LocationListener {
+public class LocationActivity extends AppCompatActivity implements LocationListener, IView.ILocationActivityView {
+
+    IPresenter.ILocationActiviy IPresenterLocationActivityInterface;
+
+
+    private RecyclerView recyclerView;
+
 
     private TextView latitud;
     private TextView longitud;
 
-    List<Integer> issPassesList = new ArrayList<Integer>();
+    List<Response> issResponsesList = new ArrayList<>();
 
     private LocationManager locationManager;
     private String provider;
+
+    ResponsesAdapter responsesAdapter;
+    private RecyclerView.LayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-        //ButterKnife.bind(LocationActivity.this);
+        ButterKnife.bind(this);
         latitud = findViewById(R.id.tv_latitud);
         longitud = findViewById(R.id.tv_longitud);
+        recyclerView = ((RecyclerView) findViewById(R.id.recyclerview));
         initLocationManager();
 
 
         if (latitud == null) {
-            Toast.makeText(this, "Es null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Location is not available", Toast.LENGTH_SHORT).show();
         }
-
 
         latitud = ((TextView) findViewById(R.id.tv_longitud));
         longitud = ((TextView) findViewById(R.id.tv_latitud));
 
+    }
 
+    private void initAdapter() {
+        responsesAdapter = new ResponsesAdapter(issResponsesList, this);
+        linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(responsesAdapter);
+
+        IPresenterLocationActivityInterface = new LocationActivityPresenter(this);
+        IPresenterLocationActivityInterface.getIssPasses(issResponsesList, latitud.getText().toString(), longitud.getText().toString());
     }
 
 
@@ -68,54 +89,23 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
 
         // Initialize the location fields
         if (location != null) {
-            System.out.println("Provider " + provider + " has been selected.");
             onLocationChanged(location);
         } else {
             latitud.setText("Location not available");
             longitud.setText("Location not available");
         }
 
-
     }
+
 
     @Override
     public void onLocationChanged(Location location) {
-
         double lat = (double) (location.getLatitude());
         double lng = (double) (location.getLongitude());
 
-
-        latitud.setText(String.format("%6f",lat));
-        longitud.setText(String.format("%6f",lng));
-
-        Observable<ISSPass> resultObservable = RetrofitAdapter.Factory.createObservable(latitud.getText().toString(),longitud.getText().toString());
-        Observer issObserver = new Observer<ISSPass>() {
-                @Override
-            public void onCompleted() {
-                    Log.d("TAG", "COmpleted: ");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.d("TAG", "onError: " + e.getMessage());
-
-
-            }
-
-            @Override
-            public void onNext(ISSPass issPass) {
-                //iDetailFollowerView.setItems(repoUser);
-
-                Log.d("TAG", "onNext: " + issPass.getResponse().iterator().next().getDuration());
-            }
-
-        };
-
-        resultObservable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(issObserver);
-
-
+        latitud.setText(String.format("%6f", lat));
+        longitud.setText(String.format("%6f", lng));
+        initAdapter();
     }
 
     @Override
@@ -131,5 +121,11 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
     @Override
     public void onProviderDisabled(String s) {
 
+    }
+
+
+    @Override
+    public void notifyAdapter() {
+        responsesAdapter.notifyDataSetChanged();
     }
 }

@@ -3,13 +3,12 @@ package com.yoprogramo.isspasses.view;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.yoprogramo.isspasses.R;
-import com.yoprogramo.isspasses.util.PermissionUtil;
-import com.yoprogramo.isspasses.util.Prefs;
 import com.yoprogramo.isspasses.constants.Commons;
 import com.yoprogramo.isspasses.event.PermissionEvent;
+import com.yoprogramo.isspasses.util.PermissionUtil;
+import com.yoprogramo.isspasses.util.Prefs;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -51,7 +50,6 @@ public class MainActivity extends BusListenerActivity implements PermissionUtil.
 
 
     private void getLocation() {
-        Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LocationActivity.class);
         startActivity(intent);
         finish();
