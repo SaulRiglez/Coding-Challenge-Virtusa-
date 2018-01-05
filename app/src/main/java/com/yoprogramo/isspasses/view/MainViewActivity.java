@@ -1,13 +1,6 @@
 package com.yoprogramo.isspasses.view;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,17 +14,25 @@ import android.widget.Toast;
 
 import com.yoprogramo.isspasses.R;
 import com.yoprogramo.isspasses.entities.Response;
+import com.yoprogramo.isspasses.event.locationStatusEvent;
+import com.yoprogramo.isspasses.event.onLocationChangedEvent;
+import com.yoprogramo.isspasses.model.LocationService;
 import com.yoprogramo.isspasses.presenter.IPresenter;
 import com.yoprogramo.isspasses.presenter.MainViewActivityPresenter;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 
-public class MainViewActivity extends AppCompatActivity implements LocationListener, IView.ILocationActivityView {
+public class MainViewActivity extends BusListenerActivity implements IView.ILocationActivityView {
 
     IPresenter.ILocationActiviy IPresenterLocationActivityInterface;
+
+    LocationService locationService;
 
 
     private RecyclerView recyclerView;
@@ -43,8 +44,6 @@ public class MainViewActivity extends AppCompatActivity implements LocationListe
 
     List<Response> issResponsesList = new ArrayList<>();
 
-    private LocationManager locationManager;
-    private String provider;
     ResponsesAdapter responsesAdapter;
     private RecyclerView.LayoutManager linearLayoutManager;
 
@@ -60,10 +59,8 @@ public class MainViewActivity extends AppCompatActivity implements LocationListe
         failure = ((LinearLayout) findViewById(R.id.failure));
         success = ((LinearLayout) findViewById(R.id.failure));
 
-        initLocationManager();
-
-        initAdapter();
-
+       locationService = new LocationService(this);
+        locationService.initService();
     }
 
     private void initAdapter() {
@@ -91,41 +88,21 @@ public class MainViewActivity extends AppCompatActivity implements LocationListe
 
         if (id == R.id.action_reset) {
             Toast.makeText(this, "Location updated", Toast.LENGTH_SHORT).show();
-            initializeLocationFields();
+            locationService.initService();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void initLocationManager() {
-        // Get the location manager
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        // Define the criteria how to select the locatioin provider -> use
-        // default
-        Criteria criteria = new Criteria();
-        provider = locationManager.getBestProvider(criteria, false);
-        // Initialize the location fields
-        initializeLocationFields();
-    }
-
-    private void initializeLocationFields() {
-        @SuppressLint("MissingPermission")
-        Location location = locationManager.getLastKnownLocation(provider);
-
-        if (location != null) {
-            onLocationChanged(location);
-        } else {
-            failure.setVisibility(View.VISIBLE);
-            success.setVisibility(View.GONE);
-            latitud.setText("Location not available");
-            longitud.setText("Location not available");
-        }
-    }
-
-
     @Override
-    public void onLocationChanged(Location location) {
-        double lat = (double) (location.getLatitude());
-        double lng = (double) (location.getLongitude());
+    public void notifyAdapter() {
+        responsesAdapter.notifyDataSetChanged();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEvent(onLocationChangedEvent event) {
+
+        final double lat = event.getLat();
+        final double lng = event.getLat();
 
         String header = "Your are here: " + "( Lat: " + String.format("%6f", lat) + " , " + "Long: " + String.format("%6f", lng) + " )";
         locationHeader.setText(header);
@@ -133,27 +110,21 @@ public class MainViewActivity extends AppCompatActivity implements LocationListe
         longitud.setText(String.format("%6f", lng));
         latitud.setVisibility(View.GONE);
         longitud.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
+        issResponsesList.clear();
+        initAdapter();
 
     }
 
 
-    @Override
-    public void notifyAdapter() {
-        responsesAdapter.notifyDataSetChanged();
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEvent(locationStatusEvent event) {
+        if(!event.isStatus()){
+            failure.setVisibility(View.VISIBLE);
+            success.setVisibility(View.GONE);
+            latitud.setText("Location not available");
+            longitud.setText("Location not available");
+        }
+
     }
 
 }
