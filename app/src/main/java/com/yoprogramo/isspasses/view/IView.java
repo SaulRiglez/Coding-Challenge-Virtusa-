@@ -5,11 +5,8 @@ package com.yoprogramo.isspasses.view;
  */
 
 public interface IView {
-
-
     public interface ILocationActivityView {
         void notifyAdapter();
     }
-
 
 }

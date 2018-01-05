@@ -6,9 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.text.TextUtils;
 
-/**
- * Created by User on 1/4/2018.
- */
 
 public final class NativePopups {
     private static final String TAG = NativePopups.class.getSimpleName();

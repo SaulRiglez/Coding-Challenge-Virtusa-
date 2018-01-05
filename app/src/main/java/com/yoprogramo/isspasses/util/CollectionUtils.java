@@ -7,10 +7,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by User on 1/3/2018.
- */
-
 public final class CollectionUtils {
 
     private CollectionUtils() {

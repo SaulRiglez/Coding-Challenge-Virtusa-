@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.yoprogramo.isspasses.R;
 import com.yoprogramo.isspasses.model.Response;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -32,13 +34,22 @@ public class ResponsesAdapter extends RecyclerView.Adapter<ResponsesAdapter.Resp
 
     @Override
     public void onBindViewHolder(ResponsesViewHolder holder, int position) {
-
         Response response = this.responsesList.get(position);
+
+        String dateTime = getReadableDateTime(response.getRisetime());
         holder.duration.setText(response.getDuration().toString());
-        holder.time.setText(response.getRisetime().toString());
-        holder.counter.setText(String.format("%S", position + 1));
+        holder.time.setText(dateTime);
 
     }
+
+    private String getReadableDateTime(Integer duration) {
+
+        String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                .format(new Date(duration * 1000L));
+
+        return dateTime;
+    }
+
 
     @Override
     public int getItemCount() {
@@ -49,7 +60,6 @@ public class ResponsesAdapter extends RecyclerView.Adapter<ResponsesAdapter.Resp
 
         TextView duration;
         TextView time;
-        TextView counter;
 
         public ResponsesViewHolder(View itemView) {
             super(itemView);
@@ -57,7 +67,6 @@ public class ResponsesAdapter extends RecyclerView.Adapter<ResponsesAdapter.Resp
 
             duration = (TextView) itemView.findViewById(R.id.tv_duration);
             time = (TextView) itemView.findViewById(R.id.tv_time);
-            counter = (TextView) itemView.findViewById(R.id.counter);
         }
 
     }

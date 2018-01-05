@@ -11,6 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,10 +36,11 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
 
 
     private RecyclerView recyclerView;
-
-
     private TextView latitud;
     private TextView longitud;
+    private TextView locationHeader;
+    private LinearLayout failure;
+    private LinearLayout success;
 
     List<Response> issResponsesList = new ArrayList<>();
 
@@ -49,19 +55,19 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
         ButterKnife.bind(this);
-        latitud = findViewById(R.id.tv_latitud);
-        longitud = findViewById(R.id.tv_longitud);
+        longitud = ((TextView) findViewById(R.id.tv_longitud));
+        latitud = ((TextView) findViewById(R.id.tv_latitud));
         recyclerView = ((RecyclerView) findViewById(R.id.recyclerview));
+        locationHeader = ((TextView) findViewById(R.id.location_header));
+        failure = ((LinearLayout) findViewById(R.id.failure));
+        success = ((LinearLayout) findViewById(R.id.failure));
         initLocationManager();
-
 
         if (latitud == null) {
             Toast.makeText(this, "Location is not available", Toast.LENGTH_SHORT).show();
         }
 
-        latitud = ((TextView) findViewById(R.id.tv_longitud));
-        longitud = ((TextView) findViewById(R.id.tv_latitud));
-
+        initAdapter();
     }
 
     private void initAdapter() {
@@ -76,6 +82,23 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         IPresenterLocationActivityInterface.getIssPasses(issResponsesList, latitud.getText().toString(), longitud.getText().toString());
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_bar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_reset) {
+            Toast.makeText(this, "Location updated", Toast.LENGTH_SHORT).show();
+            initializeLocationFields();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void initLocationManager() {
         // Get the location manager
@@ -84,17 +107,22 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         // default
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
+        // Initialize the location fields
+        initializeLocationFields();
+    }
+
+    private void initializeLocationFields() {
         @SuppressLint("MissingPermission")
         Location location = locationManager.getLastKnownLocation(provider);
 
-        // Initialize the location fields
         if (location != null) {
             onLocationChanged(location);
         } else {
+            failure.setVisibility(View.VISIBLE);
+            success.setVisibility(View.GONE);
             latitud.setText("Location not available");
             longitud.setText("Location not available");
         }
-
     }
 
 
@@ -103,9 +131,12 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         double lat = (double) (location.getLatitude());
         double lng = (double) (location.getLongitude());
 
+        String header = "Your are here: " + "( Lat: " + String.format("%6f", lat) +" , " + "Long: " + String.format("%6f", lng) + " )";
+        locationHeader.setText(header);
         latitud.setText(String.format("%6f", lat));
         longitud.setText(String.format("%6f", lng));
-        initAdapter();
+        latitud.setVisibility(View.GONE);
+        longitud.setVisibility(View.GONE);
     }
 
     @Override

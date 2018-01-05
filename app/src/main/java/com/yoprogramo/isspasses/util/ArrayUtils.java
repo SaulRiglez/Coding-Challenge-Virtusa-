@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by User on 1/3/2018.
- */
-
 final public class ArrayUtils {
 
     private ArrayUtils() {

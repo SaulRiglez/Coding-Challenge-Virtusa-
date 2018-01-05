@@ -33,7 +33,6 @@ public class MainActivity extends BusListenerActivity implements PermissionUtil.
         startLocationPermissions();
     }
 
-
     protected void startLocationPermissions() {
         if (Prefs.getInstance().getShowLocationSettings()) {
             PermissionUtil.openSettingsIfDeniedPermission(this,
@@ -47,7 +46,6 @@ public class MainActivity extends BusListenerActivity implements PermissionUtil.
 
         }
     }
-
 
     private void getLocation() {
         Intent intent = new Intent(this, LocationActivity.class);

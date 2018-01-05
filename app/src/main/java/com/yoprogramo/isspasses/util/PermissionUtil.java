@@ -19,12 +19,6 @@ import java.util.List;
 
 public final class PermissionUtil {
 
-    public static final int ALL_PERMISSIONS_REQUEST_CODE = 1;
-    public static final int GALLERY_PERMISSION_REQUEST_CODE = 225;
-    public static final int CAMERA_PERMISSION_REQUEST_CODE = 224;
-    public static final int VOICE_SEARCH_PERMISSION_RECORD_AUDIO = 226;
-
-
     private PermissionUtil() {
         // hide constructor
     }
